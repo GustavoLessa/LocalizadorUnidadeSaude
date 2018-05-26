@@ -32,5 +32,21 @@ namespace CodeHB.HealthUnitsPoa.Web.Controllers
             } 
             return View(units);
         }
+
+        public ActionResult ListUnits(string startAddress)
+        {
+            TempData["startAddress"] = startAddress;
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult GetRoute(string startAddress, string endAddress)
+        {
+            Route route = new Route();
+            route.StartAddress = startAddress;
+            route.EndAddress = endAddress;
+
+            return View(route);
+        }
     }
 }

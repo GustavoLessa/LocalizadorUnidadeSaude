@@ -9,8 +9,8 @@ namespace CodeHB.HealthUnitsPoa.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/markedMap.js"));
+                        "~/Scripts/jquery-{version}.js"));
+            //"~/Scripts/markedMap.js"
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

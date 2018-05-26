@@ -1,0 +1,29 @@
+﻿@model CodeHB.HealthUnitsPoa.Web.Models.Route
+
+@{
+    ViewBag.Title = "Rota";
+    TempData["startAddress"] = Model.StartAddress;
+}
+
+<div class="panel">
+
+    <div class="panel-heading">
+        @*<h3>Rota entre</h3>*@
+        <h6><b>Origem:</b> @Model.StartAddress</h6>
+        <h6><b>Destino:</b> @Model.EndAddress</h6>
+    </div>
+
+    <div class="panel-body">
+        <input type="hidden" id="startAddress" value="@Model.StartAddress" />
+        <input type="hidden" id="endAddress" value="@Model.EndAddress" />
+        <div id="map-canvas" style="width: 95%; height: 400px" />
+    </div>
+
+    <div class="panel-footer">       
+        @Html.ActionLink("Retornar", "Index", null, new { @class = "btn btn-default" })
+    </div>
+</div>
+
+<script src="~/Scripts/RouteMap.js"></script>
+
+
