@@ -15,7 +15,8 @@ function initialize() {
 
     map = new google.maps.Map(document.getElementById("map-canvas"), options);
     directionsDisplay.setMap(map); // Relacionamos o directionsDisplay com o mapa desejado
-    
+    directionsDisplay.setPanel(document.getElementById("trajeto-texto")); // Aqui faço a definição
+
     var enderecoPartida = document.getElementById("startAddress").value; //$("#startAddress").val();//"Major João Batista lessa, 120"; //"@Model.StartAddress;//$("#txtEnderecoPartida").val();
     var enderecoChegada = document.getElementById("endAddress").value; //$("#endAddress").val();//"Cristovão Colombo, porto alegre";//@Model.EndAddress;//$("#txtEnderecoChegada").val();
     
