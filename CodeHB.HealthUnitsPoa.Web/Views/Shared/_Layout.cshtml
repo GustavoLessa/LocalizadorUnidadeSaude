@@ -16,12 +16,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @Html.ActionLink("CodeHB", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @*@Html.ActionLink("CodeHB", "Index", "HealthUnits", new { area = "" }, new { @class = "navbar-brand" })*@
+            <a href="#"><img src="~/images/logo.png" class="navbar-brand logo"></a>
+           
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Lista das Unidades_", "Index", "HealthUnits")</li> 
-                <li>@Html.ActionLink("Lista das Unidades", "ListUnits", "HealthUnits")</li> 
+                <li>@Html.ActionLink("Lista das Unidades", "Index", "HealthUnits")</li>                
                 <li>@Html.ActionLink("Mapa das Unidades", "InitMap", "Maps")</li>                   
             </ul>
         </div>
