@@ -42,8 +42,11 @@
         <thead class="alert-info">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.TipoEmergencia)
+                    @Html.DisplayNameFor(model => model.Distance)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoEmergencia)
+                </th>                
                 <th>
                     @Html.DisplayNameFor(model => model.TipoInstitucao)
                 </th>
@@ -71,9 +74,12 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td class="text-left">
+                        @Html.DisplayFor(modelItem => item.Distance) km
+                    </td>
                     <td class="text-center"> 
                         @Html.DisplayFor(modelItem => item.TipoEmergencia)
-                    </td>
+                    </td>                   
                     <td  class="text-center">
                         @Html.DisplayFor(modelItem => item.TipoInstitucao)
                     </td>
@@ -91,10 +97,11 @@
                     </td>                   
                     <td class="text-center">
                         <a class="btn btn-xs btn-success" href="@item.LinkPt">Ver site</a>
-                    </td>                   
-                    <td class="text-left">                        
-                        @Html.DisplayFor(modelItem => item.EspecialidadePt)                       
-                    </td>                   
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EspecialidadePt)
+                    </td> 
+                                       
                 </tr>
             }
         </tbody>
@@ -107,31 +114,22 @@
 
 <script>
 
-    $(document).ready(function () {        
-        $("#startAddress").autocomplete({
-            source: function (request, response) {
-                geocoder.geocode({ 'address': request.term + ', Brasil', 'region': 'BR' }, function (results, status) {
-                    response($.map(results, function (item) {
-                        return {
-                            label: item.formatted_address,
-                            value: item.formatted_address//,
-                            //latitude: item.geometry.location.lat(),
-                            //longitude: item.geometry.location.lng()
-                        }
-                    }));
-                })
-            }
-            
-            //select: function (event, ui) {
-            //    $("#txtLatitude").val(ui.item.latitude);
-            //    $("#txtLongitude").val(ui.item.longitude);
-            //    var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
-            //    marker.setPosition(location);
-            //    map.setCenter(location);
-            //    map.setZoom(16);
-            //}
-        });
-    });
+    function CalculaDistancia(origem, destino) {
+        alert("\dx\z");
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+            {
+                origins: [origem],
+                destinations: [destino],
+                travelMode: google.maps.TravelMode.DRIVING
+            }, callback);
+    }
+    function callback(response, status) {
+        if (status == google.maps.DistanceMatrixStatus.OK) {
+            alert("Distância:" + response.rows[0].elements[0].distance.text);
+            alert("Duração:" + response.rows[0].elements[0].duration.text);
+        }
+    }
 
 
     $(".btn-buscar").click(function () {
