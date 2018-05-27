@@ -3,7 +3,7 @@ var infoWindow;
 
 function initialize() {
     var mapOptions = {
-        center: new google.maps.LatLng(40.601203, -8.668173),
+        center: new google.maps.LatLng(40.601203, -8.668173),//Lat e long de porto alegre
         zoom: 9,
         mapTypeId: 'roadmap',
     };
@@ -12,7 +12,8 @@ function initialize() {
 
     infoWindow = new google.maps.InfoWindow();
 
-    google.maps.event.addListener(map, 'click', function () {
+    //event listner para quando clicar no mapa fechar os detalhes da marcação
+    google.maps.event.addListener(map, 'click', function () { 
         infoWindow.close();
     });
 
@@ -29,7 +30,7 @@ function displayMarkers() {
     var bounds = new google.maps.LatLngBounds();
 
     $.ajax({
-        url: '/Maps/GetPins/', // aqui vai a URL do método //http://www.json-generator.com/api/json/get/cgVhTayIHS?indent=2
+        url: '/Maps/GetPins/', // aqui vai a URL do método
         dataType: 'json',
         success: function (response) {
             for (var i = 0; i < response.length; i++) {
@@ -58,7 +59,7 @@ function displayMarkers() {
     // Depois de criados todos os marcadores
     // a API através da sua função fitBounds vai redefinir o nível do zoom
     // e consequentemente a área do mapa abrangida.
-    map.fitBounds(bounds);
+    //map.fitBounds(bounds);
 }
 
 // Função que cria os marcadores e define o conteúdo de cada Info Window.

@@ -24,7 +24,7 @@ h3 {
 }
 
     .campos label {
-        background: #333;
+        background: #515151;
         border-radius: 6px 0 0 6px;
         color: #f0f0f0;
         cursor: pointer;
@@ -113,4 +113,32 @@ th {
     text-align: center;   
 }
 
+/*Table*/
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;   
+}
+
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+        background-color: #ddd;
+    }
+
+    #customers th {
+        padding-top: 4px;
+        padding-bottom: 8px;
+        text-align: center;
+        vertical-align:central;
+        background-color: #515151;
+        color: #ccc;
+    }
 

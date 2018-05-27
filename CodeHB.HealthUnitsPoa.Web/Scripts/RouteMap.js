@@ -1,11 +1,11 @@
 ﻿var map;
-var directionsDisplay; // Instanciaremos ele mais tarde, que será o nosso google.maps.DirectionsRenderer
+var directionsDisplay; 
 var directionsService = new google.maps.DirectionsService();
 
 function initialize() {   
 
     directionsDisplay = new google.maps.DirectionsRenderer(); // Instanciando...
-    var latlng = new google.maps.LatLng(40.601203, -8.668173);
+    var latlng = new google.maps.LatLng(40.601203, -8.668173);//Lat e long de porto alegre
 
     var options = {
         zoom: 5,
@@ -14,11 +14,11 @@ function initialize() {
     };
 
     map = new google.maps.Map(document.getElementById("map-canvas"), options);
-    directionsDisplay.setMap(map); // Relacionamos o directionsDisplay com o mapa desejado
-    directionsDisplay.setPanel(document.getElementById("trajeto-texto")); // Aqui faço a definição
+    directionsDisplay.setMap(map); // Relaciona o directionsDisplay com o mapa desejado
+    directionsDisplay.setPanel(document.getElementById("trajeto-texto")); // Mostra o mapa de direções
 
-    var enderecoPartida = document.getElementById("startAddress").value; //$("#startAddress").val();//"Major João Batista lessa, 120"; //"@Model.StartAddress;//$("#txtEnderecoPartida").val();
-    var enderecoChegada = document.getElementById("endAddress").value; //$("#endAddress").val();//"Cristovão Colombo, porto alegre";//@Model.EndAddress;//$("#txtEnderecoChegada").val();
+    var enderecoPartida = document.getElementById("startAddress").value;
+    var enderecoChegada = document.getElementById("endAddress").value;
     
     var request = { // Novo objeto google.maps.DirectionsRequest, contendo:
         origin: enderecoPartida, // origem
