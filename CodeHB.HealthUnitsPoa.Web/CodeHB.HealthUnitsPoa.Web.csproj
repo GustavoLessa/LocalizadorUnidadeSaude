@@ -169,6 +169,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="images\logo.png" />
     <Content Include="images\pin.png" />
+    <Content Include="Scripts\autocomplete.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
