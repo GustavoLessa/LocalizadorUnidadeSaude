@@ -8,17 +8,30 @@
 
 @using (Html.BeginForm("ListUnits", "HealthUnits"))
 {
-    <div class="form-horizontal">
+    <fieldset>
+        <div class="campos">
+            <label for="txtEndereco">Endereço:</label>
+            @*<input type="text" id="txtEndereco" name="txtEndereco" />*@
+            <input Value="@TempData["startAddress"]" id="startAddress" name="startAddress"  type="text" value="" placeholder="Informe seu endereço" required="required" />
+            @*<input type="button" id="btnEndereco" name="btnEndereco" value="Mostrar no mapa" />*@
+           @Html.ValidationMessage("startAddress", "", new { @class = "text-danger" })
+            <input type="submit" value="Buscar" class="btn btn-primary btnAddress" />
+        </div>  
+
+        <input type="hidden" id="txtLatitude" name="txtLatitude" />
+        <input type="hidden" id="txtLongitude" name="txtLongitude" />
+    </fieldset>
+    @*<div class="form-horizontal">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })     
-       
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <input Value="@TempData["startAddress"]" id="startAddress" name="startAddress" type="text" value="" class="form-control col-lg-1" placeholder="Informe seu endereço" required="required" />
-                
+
 
         @Html.ValidationMessage("startAddress", "", new { @class = "text-danger" })
         <input type="submit" value="Buscar" class="btn btn-primary" />
         <hr />
-    </div>
+    </div>*@
 }
 
 @if (TempData["startAddress"] != null)
@@ -26,7 +39,7 @@
 
 
     <table class="table table-striped table-condensed table-bordered">
-        <thead>
+        <thead class="alert-info">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.TipoEmergencia)
@@ -45,99 +58,80 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Endereco)
-                </th>
-                @*<th>
-                        @Html.DisplayNameFor(model => model.Longitude)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Latitude)
-                    </th>*@
+                </th>               
                 <th>
                     @Html.DisplayNameFor(model => model.LinkPt)
-                </th>
-                @*<th>
-                        @Html.DisplayNameFor(model => model.LinkEn)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LinkEs)
-                    </th>*@
+                </th>               
                 <th>
                     @Html.DisplayNameFor(model => model.EspecialidadePt)
-                </th>
-                @*<th>
-                        @Html.DisplayNameFor(model => model.EspecialidadeEn)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EspecialidadesEs)
-                    </th>*@
-                @*<th></th>*@
+                </th>               
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td class="text-center"> 
                         @Html.DisplayFor(modelItem => item.TipoEmergencia)
                     </td>
-                    <td>
+                    <td  class="text-center">
                         @Html.DisplayFor(modelItem => item.TipoInstitucao)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Nome)
                     </td>
-                    <td>
-                        @Html.ActionLink("Ver rota", "GetRoute", new { startAddress = TempData["startAddress"], endAddress = item.Endereco }, new { @class = "btn btn-primary btn-xs" })
+                    <td class="text-center">
+                        @Html.ActionLink("Ver rota", "GetRoute", new { startAddress = TempData["startAddress"], endAddress = item.Endereco }, new { @class = "btn btn-warning btn-xs" })
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Telefone)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Endereco)
-                    </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.Longitude)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Latitude)
-                        </td>*@
-                    <td>
+                    </td>                   
+                    <td class="text-center">
                         <a class="btn btn-xs btn-success" href="@item.LinkPt">Ver site</a>
-                    </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.LinkEn)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LinkEs)
-                        </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EspecialidadePt)
-                    </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.EspecialidadeEn)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EspecialidadesEs)
-                        </td>*@
-                    @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                        </td>*@
+                    </td>                   
+                    <td class="text-left">                        
+                        @Html.DisplayFor(modelItem => item.EspecialidadePt)                       
+                    </td>                   
                 </tr>
             }
         </tbody>
     </table>
-
 }
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/RouteMap.js"></script>
+<script src="~/Scripts/jquery-ui.custom.min.js"></script>
+
 <script>
 
-    //jQuery(document).ready(function ($) {
-    //    $(".table").hide();
-
-    //});
+    $(document).ready(function () {        
+        $("#startAddress").autocomplete({
+            source: function (request, response) {
+                geocoder.geocode({ 'address': request.term + ', Brasil', 'region': 'BR' }, function (results, status) {
+                    response($.map(results, function (item) {
+                        return {
+                            label: item.formatted_address,
+                            value: item.formatted_address//,
+                            //latitude: item.geometry.location.lat(),
+                            //longitude: item.geometry.location.lng()
+                        }
+                    }));
+                })
+            }
+            
+            //select: function (event, ui) {
+            //    $("#txtLatitude").val(ui.item.latitude);
+            //    $("#txtLongitude").val(ui.item.longitude);
+            //    var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+            //    marker.setPosition(location);
+            //    map.setCenter(location);
+            //    map.setZoom(16);
+            //}
+        });
+    });
 
 
     $(".btn-buscar").click(function () {

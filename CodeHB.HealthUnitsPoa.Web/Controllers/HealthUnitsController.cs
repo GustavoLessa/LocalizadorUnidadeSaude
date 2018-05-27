@@ -28,7 +28,7 @@ namespace CodeHB.HealthUnitsPoa.Web.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var ret = response.Content.ReadAsAsync<HealthUnit>().Result;
-                units = ret.Result.Records;
+                units = ret.Result.Records;                
             } 
             return View(units);
         }

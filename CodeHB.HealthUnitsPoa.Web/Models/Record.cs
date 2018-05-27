@@ -40,7 +40,7 @@ namespace CodeHB.HealthUnitsPoa.Web.Models
         [Display(Name = "Especialidade")]
         [JsonProperty(PropertyName = "Especialidades pt")]
         public string EspecialidadePt { get; set; }
-
+        
         [JsonProperty(PropertyName = "Especialidades en")]
         public string EspecialidadeEn { get; set; }
 
